@@ -7,13 +7,13 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 *************************************************************************************************************************/
 
-let btnHold = document.querySelector('.btn-hold');
-let btnRoll = document.querySelector('.btn-roll');
-let btnNewGame = document.querySelector('.btn-new');
-let playerPanel = document.querySelectorAll('.player-panel');
-let playersCurrentScores = document.querySelectorAll('.player-current-score');
-let playersTotalScores = document.querySelectorAll('.player-score');
-let dice = document.querySelector('.dice');
+const btnNewGame = document.querySelector('.btn-new');
+const btnRoll = document.querySelector('.btn-roll');
+const btnHold = document.querySelector('.btn-hold');
+const playersCurrentScores = document.querySelectorAll('.player-current-score');
+const playersTotalScores = document.querySelectorAll('.player-score');
+const playerPanel = document.querySelectorAll('.player-panel');
+const dice = document.querySelector('.dice');
 
 function Player(currentScore, totalScore, isActive) {
   this.currentScore = currentScore;
@@ -21,28 +21,28 @@ function Player(currentScore, totalScore, isActive) {
   this.isActive = isActive;
 }
 
-let player1 = new Player(0, 0, true);
-let player2 = new Player(0, 0, false);
+const player1 = new Player(0, 0, true);
+const player2 = new Player(0, 0, false);
 
 btnHold.addEventListener('click', changePlayer);
-btnHold.addEventListener('click', checkWinner);
+btnRoll.addEventListener('click', rollDice);
+btnNewGame.addEventListener('click', startNewGame);
 
 function changePlayer(e) {
   if (player1.isActive) {
     player1.isActive = false;
     player2.isActive = true;
-  }
-  else {
+  } else {
     player1.isActive = true;
     player2.isActive = false;
   }
 
   calculateTotalScore();
+  checkWinner();
 
   if (checkWinner()) {
     return;
-  }
-  else makePanelActive();
+  } else makePanelActive();
 }
 
 function makePanelActive() {
@@ -55,8 +55,7 @@ function calculateTotalScore() {
     playersTotalScores[0].innerHTML = player1.totalScore;
     player1.currentScore = 0;
     playersCurrentScores[0].innerHTML = player1.currentScore;
-  }
-  else {
+  } else {
     player2.totalScore += player2.currentScore;
     playersTotalScores[1].innerHTML = player2.totalScore;
     player2.currentScore = 0;
@@ -64,9 +63,8 @@ function calculateTotalScore() {
   }
 }
 
-btnRoll.addEventListener('click', rollDice);
 function rollDice(e) {
-  let randomNumber = Math.floor(Math.random() * 6 + 1);
+  const randomNumber = Math.floor(Math.random() * 6 + 1);
   dice['src'] = `../img/dice-${randomNumber}.png`;
   dice.style.display = 'block';
   calculateCurrentScore(randomNumber);
@@ -81,15 +79,14 @@ function calculateCurrentScore(randomNumber) {
   if (player1.isActive) {
     player1.currentScore += randomNumber;
     playersCurrentScores[0].innerHTML = player1.currentScore;
-  }
-  else {
+  } else {
     player2.currentScore += randomNumber;
     playersCurrentScores[1].innerHTML = player2.currentScore;
   }
 }
 
-function checkWinner(e) {
-  let winningScore = 100;
+function checkWinner() {
+  const winningScore = 50;
   if (player1.totalScore >= winningScore) {
     playerPanel[0].classList.add('winner');
     document.getElementById('name-0').innerHTML = 'WINNER!';
@@ -105,8 +102,6 @@ function checkWinner(e) {
     return true;
   }
 }
-
-btnNewGame.addEventListener('click', startNewGame);
 
 function startNewGame(e) {
   playerPanel.forEach(panel => panel.classList.remove('winner'));
