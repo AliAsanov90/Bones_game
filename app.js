@@ -65,7 +65,7 @@ function calculateTotalScore() {
 
 function rollDice(e) {
   const randomNumber = Math.floor(Math.random() * 6 + 1);
-  dice['src'] = `../img/dice-${randomNumber}.png`;
+  dice['src'] = `img/dice-${randomNumber}.png`;
   dice.style.display = 'block';
   calculateCurrentScore(randomNumber);
   if (randomNumber === 1) {
