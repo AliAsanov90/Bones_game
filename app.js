@@ -83,7 +83,7 @@ function calculateCurrentScore(randomNumber) {
 }
 
 function checkWinner() {
-  const winningScore = 10;
+  const winningScore = 50;
   if (player1.totalScore >= winningScore) {
     playerPanel[0].classList.add('winner');
     playerPanel[0].classList.remove('active');
