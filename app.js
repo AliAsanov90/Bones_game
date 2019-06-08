@@ -24,10 +24,6 @@ function Player(currentScore, totalScore, isActive) {
 const player1 = new Player(0, 0, true);
 const player2 = new Player(0, 0, false);
 
-btnHold.addEventListener('click', changePlayer);
-btnRoll.addEventListener('click', rollDice);
-btnNewGame.addEventListener('click', startNewGame);
-
 function changePlayer(e) {
   if (player1.isActive) {
     player1.isActive = false;
@@ -47,6 +43,7 @@ function changePlayer(e) {
 
 function makePanelActive() {
   playerPanel.forEach(panel => panel.classList.toggle('active'));
+  dice.style.display = 'none';
 }
 
 function calculateTotalScore() {
@@ -109,8 +106,8 @@ function startNewGame(e) {
   document.getElementById('name-0').innerHTML = 'PLAYER 1';
   document.getElementById('name-1').innerHTML = 'PLAYER 2';
 
-  btnHold.style.display = 'block';
-  btnRoll.style.display = 'block';
+  btnHold.style.display = 'flex';
+  btnRoll.style.display = 'flex';
   dice.style.display = 'none';
 
   playerPanel[0].classList.add('active');
@@ -130,3 +127,7 @@ function clearAllScores() {
   playersCurrentScores.forEach(currentScore => currentScore.innerHTML = 0);
   playersTotalScores.forEach(totalScore => totalScore.innerHTML = 0);
 }
+
+btnHold.addEventListener('click', changePlayer);
+btnRoll.addEventListener('click', rollDice);
+btnNewGame.addEventListener('click', startNewGame);
