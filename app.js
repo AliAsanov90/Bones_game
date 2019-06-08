@@ -62,7 +62,7 @@ function calculateTotalScore() {
 
 function rollDice(e) {
   const randomNumber = Math.floor(Math.random() * 6 + 1);
-  dice['src'] = `img/dice-${randomNumber}.png`;
+  dice.src = 'img/dice-' + randomNumber + '.png';
   dice.style.display = 'block';
   calculateCurrentScore(randomNumber);
   if (randomNumber === 1) {
@@ -83,13 +83,15 @@ function calculateCurrentScore(randomNumber) {
 }
 
 function checkWinner() {
-  const winningScore = 50;
+  const winningScore = 10;
   if (player1.totalScore >= winningScore) {
     playerPanel[0].classList.add('winner');
+    playerPanel[0].classList.remove('active');
     document.getElementById('name-0').innerHTML = 'WINNER!';
   }
   if (player2.totalScore >= winningScore) {
     playerPanel[1].classList.add('winner');
+    playerPanel[1].classList.remove('active');
     document.getElementById('name-1').innerHTML = 'WINNER!';
   }
   if (player1.totalScore >= winningScore || player2.totalScore >= winningScore) {
