@@ -10,14 +10,10 @@ GAME RULES:
 const btnNewGame = document.querySelector('.btn-new');
 const btnRoll = document.querySelector('.btn-roll');
 const btnHold = document.querySelector('.btn-hold');
-const btnDicesSelect = document.querySelector('select');
-const btnDicesOptions = document.querySelectorAll('select option');
-
 const playersCurrentScores = document.querySelectorAll('.player-current-score');
 const playersTotalScores = document.querySelectorAll('.player-score');
 const playerPanel = document.querySelectorAll('.player-panel');
 const dice = document.querySelector('.dice');
-const dice2 = document.querySelector('.dice-2');
 
 let lastDice;
 
@@ -27,8 +23,8 @@ function Player(currentScore, totalScore, isActive) {
   this.isActive = isActive;
 }
 
-const player1 = new Player(0, 0, true);
-const player2 = new Player(0, 0, false);
+const player1 = new Player(0, 0, true, 0);
+const player2 = new Player(0, 0, false, 0);
 
 function changePlayer(e) {
   if (player1.isActive) {
@@ -66,19 +62,6 @@ function calculateTotalScore() {
   }
 }
 
-function showDices(e) {
-  let options = Array.from(e.target.children);
-  // console.log(options);
-  options.forEach(option => {
-    if (option.value === 'twoDices')
-    console.log(option.value);
-    return true;
-  });
-  return false;
-}
-
-btnDicesSelect.addEventListener('click', (e) => showDices(e));
-
 function rollDice(e) {
   const randomNumber = Math.floor(Math.random() * 6 + 1);
   dice.src = 'img/dice-' + randomNumber + '.png';
@@ -107,6 +90,22 @@ function rollDice(e) {
   lastDice = randomNumber;
 }
 
+function checkTwoConsecutiveSix() {
+
+  // if (player1.isActive) {
+  //     player1.currentScore = 0;
+  //     player1.totalScore = 0;
+  //     playersCurrentScores[0].innerHTML = 0;
+  //     playersTotalScores[0].innerHTML = 0;
+  //   }
+  // else {
+  //     player2.currentScore = 0;
+  //     player2.totalScore = 0;
+  //     playersCurrentScores[1].innerHTML = 0;
+  //     playersTotalScores[1].innerHTML = 0;
+  //   }
+}
+
 function calculateCurrentScore(randomNumber) {
   if (player1.isActive) {
     player1.currentScore += randomNumber;
@@ -118,8 +117,7 @@ function calculateCurrentScore(randomNumber) {
 }
 
 function checkWinner() {
-  const input = document.querySelector('input').value;
-  const winningScore = input || 50;
+  const winningScore = 50;
   if (player1.totalScore >= winningScore) {
     playerPanel[0].classList.add('winner');
     playerPanel[0].classList.remove('active');
@@ -140,15 +138,20 @@ function checkWinner() {
 
 function startNewGame(e) {
   playerPanel.forEach(panel => panel.classList.remove('winner'));
+
   document.getElementById('name-0').innerHTML = 'PLAYER 1';
   document.getElementById('name-1').innerHTML = 'PLAYER 2';
+
   btnHold.style.display = 'flex';
   btnRoll.style.display = 'flex';
   dice.style.display = 'none';
+
   playerPanel[0].classList.add('active');
   playerPanel[1].classList.remove('active');
+
   player1.isActive = true;
   player2.isActive = false;
+
   clearAllScores();
 }
 

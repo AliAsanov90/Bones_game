@@ -10,6 +10,17 @@
 
   <body>
     <div class="wrapper clearfix">
+      <button class="secondDice" style="display: none">
+        <label for="select">Dices:</label>
+        <select name="select" id="select">
+          <option value="oneDice">1 dice</option>
+          <option value="twoDices">2 dices</option>
+        </select>
+      </button>
+      <div class="input-container">
+        <label for="number">Winning score:</label>
+        <input type="number" name="number" id="number">
+      </div>
       <div class="player-panel player-0-panel active">
         <div class="player-name" id="name-0">Player 1</div>
         <div class="player-score" id="score-0">0</div>
@@ -42,6 +53,7 @@
       </button>
 
       <img src="img/dice-5.png" alt="Dice" class="dice" style="display: none">
+      <img src="img/dice-5.png" alt="Dice" class="dice-2" style="display: none">
     </div>
 
     <script src="app.js"></script>
