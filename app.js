@@ -40,11 +40,10 @@ function changePlayer(e) {
   }
 
   calculateTotalScore();
-  checkWinner();
 
-  if (checkWinner()) {
-    return;
-  } else makePanelActive();
+  if (checkWinner()) return;
+
+  makePanelActive();
 }
 
 function makePanelActive() {
@@ -151,6 +150,7 @@ function startNewGame(e) {
   player2.isActive = false;
   clearAllScores();
 }
+
 
 function clearAllScores() {
   player1.currentScore = 0;
